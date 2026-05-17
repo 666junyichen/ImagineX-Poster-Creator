@@ -3,111 +3,139 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ImagineX Poster Creator</title>
+    <title>ImagineX Poster Creator | Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@600;700&family=Manrope:wght@400;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="app-shell">
-      <header class="topbar">
-        <a class="brand" href="#" aria-label="ImagineX Poster Creator home">
-          <span class="brand-mark">IX</span>
-          <span>
-            <strong>ImagineX</strong>
-            <small>Poster Creator</small>
-          </span>
-        </a>
-        <nav class="top-actions" aria-label="Project links">
-          <a href="https://github.com/666junyichen/ImagineX-Poster-Creator" target="_blank" rel="noreferrer">GitHub</a>
-          <button class="ghost-button" id="resetButton" type="button">Reset</button>
-          <button class="primary-button" id="downloadButton" type="button">Download PNG</button>
-        </nav>
-      </header>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="ImagineX Poster Creator home">
+        <span class="brand-mark">IX</span>
+        <span class="brand-name">ImagineX Poster Creator</span>
+      </a>
+      <nav class="topnav" aria-label="Project actions">
+        <a href="https://github.com/666junyichen/ImagineX-Poster-Creator" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="icon-button" type="button" aria-label="View source">‹ ›</button>
+        <button class="secondary-button" id="resetButton" type="button">Reset</button>
+        <button class="primary-button" id="downloadButton" type="button">Download</button>
+      </nav>
+    </header>
 
-      <main class="workspace">
-        <section class="editor-panel" aria-label="Poster editor">
-          <div class="section-heading">
-            <p>Creative studio</p>
-            <h1>Make a poster from event details.</h1>
+    <main class="studio-shell">
+      <aside class="editor-panel" aria-label="Poster editor">
+        <div class="studio-heading">
+          <div>
+            <h1>Studio</h1>
+            <p>Poster Editor v1.0</p>
           </div>
+          <button class="primary-button small" id="newProjectButton" type="button">New Project</button>
+        </div>
 
-          <form class="editor-form" id="posterForm">
+        <div class="mode-tabs" aria-label="Editor sections">
+          <button class="mode-tab active" type="button">
+            <span>▦</span>
+            Layout
+          </button>
+          <button class="mode-tab" type="button">
+            <span>Tt</span>
+            Typography
+          </button>
+          <button class="mode-tab" type="button">
+            <span>◌</span>
+            Colors
+          </button>
+          <button class="mode-tab" type="button">
+            <span>◨</span>
+            Presets
+          </button>
+        </div>
+
+        <form class="editor-form" id="posterForm">
+          <section class="form-section">
             <label>
               <span>Event title</span>
-              <input id="titleInput" type="text" value="ImagineX Creative Lab" maxlength="70" />
+              <input id="titleInput" type="text" value="The Print Revolution" maxlength="72" />
             </label>
 
             <div class="field-grid">
               <label>
                 <span>Date</span>
-                <input id="dateInput" type="text" value="11 May 2026" maxlength="24" />
+                <input id="dateInput" type="text" value="Oct 24, 2026" maxlength="24" />
               </label>
               <label>
                 <span>Time</span>
-                <input id="timeInput" type="text" value="2:00 PM" maxlength="24" />
+                <input id="timeInput" type="text" value="18:00 - 21:00" maxlength="24" />
               </label>
             </div>
 
             <label>
               <span>Place</span>
-              <input id="placeInput" type="text" value="Google Workshop" maxlength="36" />
+              <input id="placeInput" type="text" value="Metro Design Lab, Sydney" maxlength="40" />
             </label>
 
             <label>
               <span>Description</span>
-              <textarea id="descriptionInput" rows="4" maxlength="180">A hands-on mini challenge for turning ideas into polished event posters.</textarea>
+              <textarea id="descriptionInput" rows="4" maxlength="190">Exploring the intersection of tactile risograph textures and modern digital design principles.</textarea>
             </label>
+          </section>
 
-            <fieldset>
-              <legend>Visual preset</legend>
-              <div class="preset-grid" id="presetGrid"></div>
-            </fieldset>
-
-            <fieldset>
-              <legend>Accent color</legend>
-              <div class="swatch-row" id="swatchRow"></div>
-            </fieldset>
-
+          <section class="form-section">
+            <h2>Artwork</h2>
             <label class="upload-zone" id="uploadZone">
               <input id="imageInput" type="file" accept="image/*" />
-              <span class="upload-title">Drop artwork or choose an image</span>
-              <span class="upload-copy">The image will be cropped into the poster artwork area.</span>
+              <span class="upload-icon">▧</span>
+              <span class="upload-title">Drag image or click to browse</span>
             </label>
-          </form>
-        </section>
 
-        <section class="preview-stage" aria-label="Live poster preview">
-          <div class="preview-toolbar">
-            <span>Portrait 768 x 1086</span>
-            <span id="activePresetLabel">Creative Lab</span>
-          </div>
-          <canvas id="posterCanvas" width="768" height="1086" aria-label="Generated event poster preview"></canvas>
-        </section>
-      </main>
+            <fieldset>
+              <legend>Accent ink</legend>
+              <div class="swatch-row" id="swatchRow"></div>
+            </fieldset>
+          </section>
 
-      <section class="example-strip" aria-label="Example poster presets">
-        <article>
-          <span>01</span>
-          <strong>Creative Lab</strong>
-          <p>Warm editorial poster for workshops and campus sessions.</p>
-        </article>
-        <article>
-          <span>02</span>
-          <strong>Night Market</strong>
-          <p>High-contrast event art with energetic color blocks.</p>
-        </article>
-        <article>
-          <span>03</span>
-          <strong>Tech Talk</strong>
-          <p>Structured, clean, and presentation-ready.</p>
-        </article>
+          <section class="form-section">
+            <h2>Presets</h2>
+            <div class="preset-grid" id="presetGrid"></div>
+          </section>
+        </form>
+      </aside>
+
+      <section class="preview-stage" aria-label="Live poster preview">
+        <div class="stage-label">
+          <span>Portrait 768 x 1086</span>
+          <span id="activePresetLabel">Creative Lab</span>
+        </div>
+        <canvas id="posterCanvas" width="768" height="1086" aria-label="Generated event poster preview"></canvas>
+        <div class="zoom-tools" aria-label="Preview tools">
+          <button type="button" aria-label="Zoom in">⌕</button>
+          <button type="button" aria-label="Zoom out">⊖</button>
+          <button type="button" aria-label="Fit preview">⌗</button>
+        </div>
       </section>
-    </div>
+    </main>
+
+    <section class="preset-gallery" aria-label="Poster style gallery">
+      <article>
+        <span>01</span>
+        <strong>Creative Lab</strong>
+        <p>Editorial workshop poster with warm paper, deep ink, and visible halftone texture.</p>
+      </article>
+      <article>
+        <span>02</span>
+        <strong>Night Market</strong>
+        <p>High-contrast print flyer with signal red accents and dense dot-grid energy.</p>
+      </article>
+      <article>
+        <span>03</span>
+        <strong>Tech Talk</strong>
+        <p>Structured announcement layout for talks, demos, and campus technology events.</p>
+      </article>
+    </section>
 
     <script src="script.js"></script>
   </body>

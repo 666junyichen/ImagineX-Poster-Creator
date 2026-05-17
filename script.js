@@ -13,42 +13,72 @@ const presets = [
   {
     id: "creative",
     label: "Creative Lab",
-    backgroundTop: "#1f2e40",
-    backgroundBottom: "#fff8ea",
     paper: "#fffdf6",
-    ink: "#1f2e40",
-    muted: "#5e707e",
-    band: "#1f2e40",
-    accent: "#f4be5f",
-    soft: "#f0f7f3",
+    ink: "#141414",
+    muted: "#5f6570",
+    band: "#141414",
+    soft: "#ead8b8",
+    accent: "#e64b3c",
+    second: "#2f6f9f",
   },
   {
     id: "market",
     label: "Night Market",
-    backgroundTop: "#151820",
-    backgroundBottom: "#ffd7a8",
-    paper: "#fff4da",
+    paper: "#fff5df",
     ink: "#151820",
     muted: "#6e5d4f",
     band: "#151820",
-    accent: "#e85b6f",
-    soft: "#ffecef",
+    soft: "#f5c17a",
+    accent: "#e64b3c",
+    second: "#f08a3c",
   },
   {
     id: "tech",
     label: "Tech Talk",
-    backgroundTop: "#20364f",
-    backgroundBottom: "#d7ece7",
     paper: "#f8fbf8",
-    ink: "#20364f",
+    ink: "#1f2e40",
     muted: "#53687a",
-    band: "#20364f",
-    accent: "#5fa48e",
-    soft: "#e7f3f0",
+    band: "#1f2e40",
+    soft: "#d7ece7",
+    accent: "#2f6f9f",
+    second: "#4f9b8f",
+  },
+  {
+    id: "campus",
+    label: "Campus Fair",
+    paper: "#fff8e8",
+    ink: "#282315",
+    muted: "#6b5e45",
+    band: "#282315",
+    soft: "#e8b84a",
+    accent: "#4f9b8f",
+    second: "#e64b3c",
+  },
+  {
+    id: "music",
+    label: "Music Session",
+    paper: "#fbf4ee",
+    ink: "#211a1d",
+    muted: "#725c66",
+    band: "#211a1d",
+    soft: "#f2c7c2",
+    accent: "#e64b3c",
+    second: "#1f2e40",
+  },
+  {
+    id: "print",
+    label: "Print Club",
+    paper: "#fffdf6",
+    ink: "#111111",
+    muted: "#5f6570",
+    band: "#111111",
+    soft: "#e6e1df",
+    accent: "#f08a3c",
+    second: "#2f6f9f",
   },
 ];
 
-const accents = ["#f4be5f", "#5fa48e", "#e85b6f", "#3f7cac", "#151820"];
+const accents = ["#e64b3c", "#2f6f9f", "#f08a3c", "#4f9b8f", "#e8b84a", "#1f2e40"];
 
 let activePreset = presets[0];
 let activeAccent = activePreset.accent;
@@ -87,15 +117,13 @@ function wrapLines(text, maxWidth, font) {
     }
   }
 
-  if (current) {
-    lines.push(current);
-  }
-
+  if (current) lines.push(current);
   return lines;
 }
 
-function drawTextBlock(text, x, y, maxWidth, lineHeight, font, fill, limit) {
-  const lines = wrapLines(text, maxWidth, font).slice(0, limit);
+function drawTextBlock(text, x, y, maxWidth, lineHeight, font, fill, limit, transform = "none") {
+  const content = transform === "uppercase" ? String(text || "").toUpperCase() : text;
+  const lines = wrapLines(content, maxWidth, font).slice(0, limit);
   ctx.font = font;
   ctx.fillStyle = fill;
   ctx.textBaseline = "top";
@@ -105,7 +133,59 @@ function drawTextBlock(text, x, y, maxWidth, lineHeight, font, fill, limit) {
   return y + lines.length * lineHeight;
 }
 
-function drawCoverImage(image, x, y, width, height, radius) {
+function drawHalftone(x, y, width, height, color, spacing = 8, radius = 1.2, alpha = 0.16) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(x, y, width, height);
+  ctx.clip();
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = color;
+  for (let dotY = y; dotY < y + height; dotY += spacing) {
+    for (let dotX = x + ((dotY / spacing) % 2) * (spacing / 2); dotX < x + width; dotX += spacing) {
+      ctx.beginPath();
+      ctx.arc(dotX, dotY, radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  ctx.restore();
+}
+
+function drawPaperGrain() {
+  ctx.save();
+  ctx.globalAlpha = 0.08;
+  for (let i = 0; i < 2600; i += 1) {
+    const value = 130 + Math.random() * 80;
+    ctx.fillStyle = `rgb(${value}, ${value}, ${value})`;
+    ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1, 1);
+  }
+  ctx.restore();
+}
+
+function drawRegistrationMarks(x, y, width, height, color) {
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.globalAlpha = 0.45;
+  ctx.lineWidth = 3;
+  const size = 26;
+  const inset = 18;
+  const points = [
+    [x + inset, y + inset, 1, 1],
+    [x + width - inset, y + inset, -1, 1],
+    [x + inset, y + height - inset, 1, -1],
+    [x + width - inset, y + height - inset, -1, -1],
+  ];
+
+  points.forEach(([px, py, sx, sy]) => {
+    ctx.beginPath();
+    ctx.moveTo(px, py + sy * size);
+    ctx.lineTo(px, py);
+    ctx.lineTo(px + sx * size, py);
+    ctx.stroke();
+  });
+  ctx.restore();
+}
+
+function drawCoverImage(image, x, y, width, height) {
   const scale = Math.max(width / image.width, height / image.height);
   const scaledWidth = image.width * scale;
   const scaledHeight = image.height * scale;
@@ -113,136 +193,147 @@ function drawCoverImage(image, x, y, width, height, radius) {
   const sy = (height - scaledHeight) / 2;
 
   ctx.save();
-  roundedRect(x, y, width, height, radius);
+  ctx.beginPath();
+  ctx.rect(x, y, width, height);
   ctx.clip();
+  ctx.filter = "grayscale(0.85) contrast(1.2) brightness(0.82)";
   ctx.drawImage(image, x + sx, y + sy, scaledWidth, scaledHeight);
+  ctx.filter = "none";
+  ctx.globalCompositeOperation = "multiply";
+  ctx.globalAlpha = 0.2;
+  ctx.fillStyle = activeAccent;
+  ctx.fillRect(x, y, width, height);
   ctx.restore();
+  drawHalftone(x, y, width, height, "#111111", 7, 1.35, 0.18);
 }
 
 function drawDefaultArt(preset) {
-  fillRoundedRect(72, 258, 624, 426, 42, preset.soft);
+  const x = 72;
+  const y = 298;
+  const width = 624;
+  const height = 432;
 
-  ctx.fillStyle = "#5fa48e";
+  ctx.fillStyle = preset.soft;
+  ctx.fillRect(x, y, width, height);
+  drawHalftone(x, y, width, height, preset.ink, 8, 1.3, 0.12);
+
+  ctx.save();
   ctx.beginPath();
-  ctx.arc(205, 407, 96, 0, Math.PI * 2);
+  ctx.rect(x, y, width, height);
+  ctx.clip();
+
+  ctx.globalAlpha = 0.92;
+  ctx.fillStyle = preset.ink;
+  ctx.beginPath();
+  ctx.ellipse(x + 145, y + 120, 250, 92, -0.2, 0, Math.PI * 2);
   ctx.fill();
 
   ctx.fillStyle = activeAccent;
+  ctx.globalAlpha = 0.82;
   ctx.beginPath();
-  ctx.arc(553, 389, 86, 0, Math.PI * 2);
+  ctx.ellipse(x + 420, y + 145, 260, 76, -0.7, 0, Math.PI * 2);
   ctx.fill();
 
-  fillRoundedRect(170, 518, 440, 76, 38, preset.ink);
-  fillRoundedRect(220, 560, 328, 78, 38, "#407c97");
-
-  ctx.strokeStyle = "#fffdf6";
-  ctx.lineWidth = 10;
+  ctx.fillStyle = preset.second;
+  ctx.globalAlpha = 0.7;
   ctx.beginPath();
-  ctx.moveTo(120, 630);
-  ctx.lineTo(648, 330);
-  ctx.stroke();
+  ctx.ellipse(x + 360, y + 318, 360, 70, 0.15, 0, Math.PI * 2);
+  ctx.fill();
 
-  ctx.strokeStyle = "#5b7e9a";
-  ctx.lineWidth = 5;
+  ctx.globalAlpha = 1;
+  ctx.strokeStyle = preset.paper;
+  ctx.lineWidth = 12;
   ctx.beginPath();
-  ctx.moveTo(120, 654);
-  ctx.lineTo(648, 354);
+  ctx.moveTo(x + 20, y + height - 34);
+  ctx.bezierCurveTo(x + 170, y + 230, x + 350, y + 350, x + width - 28, y + 30);
   ctx.stroke();
+  ctx.restore();
 
-  ["#e85b6f", "#fffdf6", "#5177b3"].forEach((color, index) => {
-    const points = [
-      [350, 374],
-      [430, 438],
-      [510, 392],
-    ];
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.arc(points[index][0], points[index][1], 20, 0, Math.PI * 2);
-    ctx.fill();
-  });
+  drawRegistrationMarks(x, y, width, height, preset.ink);
 }
 
 function drawPoster() {
   const preset = { ...activePreset, accent: activeAccent };
-  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  gradient.addColorStop(0, preset.backgroundTop);
-  gradient.addColorStop(1, preset.backgroundBottom);
-  ctx.fillStyle = gradient;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = preset.paper;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
+  drawHalftone(0, 0, canvas.width, canvas.height, preset.ink, 6, 1, 0.12);
 
-  ctx.fillStyle = "#5fa48e";
-  ctx.beginPath();
-  ctx.arc(40, 70, 202, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.fillStyle = preset.paper;
+  ctx.fillRect(48, 38, 672, 1010);
+  drawPaperGrain();
 
-  ctx.fillStyle = preset.accent;
-  ctx.beginPath();
-  ctx.arc(700, 260, 172, 0, Math.PI * 2);
-  ctx.fill();
-
-  fillRoundedRect(36, 36, 696, 1014, 48, preset.paper);
-
-  ctx.fillStyle = preset.muted;
-  ctx.font = "700 18px Manrope, sans-serif";
+  ctx.fillStyle = preset.ink;
+  ctx.font = "700 18px 'IBM Plex Sans', sans-serif";
   ctx.textBaseline = "top";
-  ctx.fillText("EVENT POSTER", 72, 74);
+  ctx.fillText("EVENT POSTER / HALFTONE STUDIO", 72, 66);
+
+  ctx.fillStyle = activeAccent;
+  ctx.fillRect(72, 94, 172, 8);
 
   drawTextBlock(
     fields.title.value || "Untitled Event",
     72,
-    108,
-    610,
-    64,
-    "800 58px Fraunces, serif",
+    118,
+    624,
+    82,
+    "800 72px 'Playfair Display', serif",
     preset.ink,
     2,
+    "uppercase",
   );
 
+  ctx.fillStyle = preset.ink;
+  ctx.fillRect(72, 262, 624, 5);
+
   if (uploadedImage) {
-    drawCoverImage(uploadedImage, 72, 258, 624, 426, 42);
+    drawCoverImage(uploadedImage, 72, 298, 624, 432);
   } else {
     drawDefaultArt(preset);
   }
 
-  fillRoundedRect(72, 724, 624, 156, 30, preset.band);
-
-  ctx.fillStyle = preset.accent;
-  ctx.font = "800 22px Manrope, sans-serif";
-  ctx.fillText("ABOUT", 106, 756);
+  ctx.fillStyle = preset.band;
+  ctx.fillRect(72, 768, 624, 126);
+  drawHalftone(72, 768, 624, 126, preset.paper, 6, 1.1, 0.08);
 
   drawTextBlock(
     fields.description.value || "A hands-on creative workshop event.",
-    106,
-    796,
-    548,
-    35,
-    "400 26px Manrope, sans-serif",
+    102,
+    800,
+    552,
+    34,
+    "400 25px Manrope, sans-serif",
     preset.paper,
     3,
   );
 
+  ctx.fillStyle = preset.ink;
+  ctx.fillRect(72, 936, 624, 2);
+
   const cards = [
     ["DATE", fields.date.value || "TBC"],
     ["TIME", fields.time.value || "TBC"],
-    ["PLACE", fields.place.value || "TBC"],
+    ["LOCATION", fields.place.value || "TBC"],
   ];
 
   cards.forEach(([label, value], index) => {
-    const x = 72 + index * 217;
-    fillRoundedRect(x, 916, 190, 92, 24, preset.soft);
-    ctx.fillStyle = preset.muted;
-    ctx.font = "800 22px Manrope, sans-serif";
-    ctx.fillText(label, x + 22, 940);
-
+    const x = 72 + index * 208;
+    ctx.fillStyle = "rgba(20, 20, 20, 0.08)";
+    ctx.fillRect(x + 188, 960, 1, 76);
+    ctx.fillStyle = preset.ink;
+    ctx.font = "700 15px 'IBM Plex Sans', sans-serif";
+    ctx.fillText(label, x, 966);
     drawTextBlock(
       value,
-      x + 22,
-      970,
-      146,
-      30,
-      "800 26px Manrope, sans-serif",
+      x,
+      998,
+      168,
+      26,
+      "700 21px Manrope, sans-serif",
       preset.ink,
       1,
+      "uppercase",
     );
   });
 }
@@ -302,6 +393,21 @@ function loadImageFile(file) {
   reader.readAsDataURL(file);
 }
 
+function resetPoster() {
+  fields.title.value = "The Print Revolution";
+  fields.date.value = "Oct 24, 2026";
+  fields.time.value = "18:00 - 21:00";
+  fields.place.value = "Metro Design Lab, Sydney";
+  fields.description.value = "Exploring the intersection of tactile risograph textures and modern digital design principles.";
+  uploadedImage = null;
+  activePreset = presets[0];
+  activeAccent = activePreset.accent;
+  document.querySelector("#activePresetLabel").textContent = activePreset.label;
+  renderPresetButtons();
+  renderSwatches();
+  drawPoster();
+}
+
 Object.values(fields).forEach((field) => {
   field.addEventListener("input", drawPoster);
 });
@@ -331,26 +437,16 @@ uploadZone.addEventListener("drop", (event) => {
 
 document.querySelector("#downloadButton").addEventListener("click", () => {
   const link = document.createElement("a");
-  link.download = "imaginex-poster.png";
+  link.download = "imaginex-halftone-poster.png";
   link.href = canvas.toDataURL("image/png");
   link.click();
 });
 
-document.querySelector("#resetButton").addEventListener("click", () => {
-  fields.title.value = "ImagineX Creative Lab";
-  fields.date.value = "11 May 2026";
-  fields.time.value = "2:00 PM";
-  fields.place.value = "Google Workshop";
-  fields.description.value = "A hands-on mini challenge for turning ideas into polished event posters.";
-  uploadedImage = null;
-  activePreset = presets[0];
-  activeAccent = activePreset.accent;
-  document.querySelector("#activePresetLabel").textContent = activePreset.label;
+document.querySelector("#resetButton").addEventListener("click", resetPoster);
+document.querySelector("#newProjectButton").addEventListener("click", resetPoster);
+
+document.fonts.ready.then(() => {
   renderPresetButtons();
   renderSwatches();
   drawPoster();
 });
-
-renderPresetButtons();
-renderSwatches();
-drawPoster();

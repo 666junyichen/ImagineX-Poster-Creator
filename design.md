@@ -1,281 +1,403 @@
-# ImagineX Poster Creator - Web Design Brief
+# ImagineX Poster Creator - DESIGN.md
 
-## 1. Product Direction
+## 1. Product Identity
 
-ImagineX Poster Creator should feel less like a small Python script and more like a lightweight creative studio for making event posters quickly.
+ImagineX Poster Creator is a browser-based poster studio for quickly turning event details into a downloadable event poster.
 
-The web version should let a user:
+The product should feel like a small but polished creative tool, not a generic form page. The core experience is direct: users type event information, choose a visual direction, preview a poster live, upload optional artwork, and download a PNG.
 
-- Enter event details.
-- Choose a visual style.
-- Preview a poster instantly.
-- Upload an optional image.
-- Download the final PNG.
+Design direction: retro print studio meets modern web editor.
 
-The main design goal is to make the project look like a polished product demo: simple enough for workshop users, but visually strong enough for a portfolio, GitHub README, and Vercel deployment.
+The memorable quality should be tactile print texture: halftone dots, screen-print grain, ink edges, paper warmth, and bold editorial poster composition.
 
-## 2. Audience
+## 2. Design Positioning
+
+ImagineX should sit between these references:
+
+- A lightweight Canva-style poster maker.
+- A workshop project that demonstrates Python/Pillow image generation.
+- A portfolio-ready creative coding product.
+- A print studio interface with visible texture and craft.
+
+It should not feel like:
+
+- A plain Bootstrap form.
+- A generic AI generator landing page.
+- A purple-gradient SaaS dashboard.
+- A cute template gallery with no serious visual direction.
+- A complex professional design suite.
+
+## 3. Audience
 
 Primary users:
 
-- Students joining workshops or hackathons.
-- Event organizers who need a quick poster.
-- Reviewers looking at the project as a portfolio piece.
+- Students creating workshop, club, and campus event posters.
+- Hackathon participants making quick visual announcements.
+- Event organizers who want a simple downloadable poster.
+- Recruiters or reviewers evaluating the project as a portfolio piece.
 
-The interface should feel creative and capable, but not overly complex. The user should understand the workflow within a few seconds.
+The interface should communicate that the project is practical, visual, and intentionally designed.
 
-## 3. Design Personality
+## 4. Visual Theme
 
-Style direction: editorial creative studio.
+Theme name: Halftone Editorial Studio.
 
 Keywords:
 
-- Bold
-- Warm
-- Structured
-- Visual
-- Maker-focused
-- Portfolio-ready
+- Retro print
+- Halftone
+- Screen print
+- Editorial
+- Warm paper
+- Ink contrast
+- Maker studio
+- Portfolio-grade
 
-Avoid:
+The web app should use a high-contrast workspace with a warm paper canvas. The poster preview is the hero. Controls should be clean and usable, while the generated poster should carry most of the expressive visual detail.
 
-- Generic SaaS dashboards
-- Plain white form pages
-- Purple AI gradients
-- Overly cute template-builder UI
-- Too many rounded cards
+## 5. Color System
 
-The web app should feel like a clean design tool with a strong poster-art personality.
+Use a print-inspired palette with strong contrast and limited accents.
 
-## 4. Visual System
+### Core Tokens
 
-### Color Palette
+- Ink Black: `#141414`
+- Deep Navy Ink: `#1f2e40`
+- Paper Cream: `#fff5df`
+- Newsprint Beige: `#ead8b8`
+- Studio White: `#fffdf6`
+- Muted Graphite: `#5f6570`
+- Border Ink: `rgba(20, 20, 20, 0.18)`
 
-Use a warm studio palette with strong contrast:
+### Accent Tokens
 
-- Ink Navy: `#1f2e40`
-- Paper Cream: `#fff8ea`
-- Sage Green: `#5fa48e`
-- Marigold: `#f4be5f`
-- Coral Red: `#e85b6f`
-- Mist Green: `#f0f7f3`
-- Slate Gray: `#5e707e`
+- Signal Red: `#e64b3c`
+- Risograph Orange: `#f08a3c`
+- Screenprint Blue: `#2f6f9f`
+- Faded Teal: `#4f9b8f`
+- Mustard Yellow: `#e8b84a`
 
-The UI should mostly use Paper Cream and Ink Navy, with Sage Green and Marigold as functional accents. Coral Red should be used sparingly for active states or visual energy.
+### Usage Rules
 
-### Typography
+- Use Paper Cream or Studio White for main surfaces.
+- Use Ink Black or Deep Navy Ink for primary text and poster bands.
+- Use one main accent at a time inside the poster.
+- Use halftone or dot overlays in accent colors, but keep opacity low enough that text remains readable.
+- Avoid one-note monochrome pages. The site should feel warm, printed, and crafted.
 
-Recommended font pairing:
+## 6. Typography
 
-- Display: `Fraunces`, `DM Serif Display`, or `Playfair Display`
-- Body/UI: `Manrope`, `IBM Plex Sans`, or `Source Sans 3`
+The typography should feel editorial and poster-like.
 
-Use a strong editorial display typeface for the app name and poster preview. Use a clean sans serif for form labels, buttons, and helper text.
+### Recommended Fonts
 
-### Shape Language
+Display:
 
-- Keep main app surfaces mostly flat and structured.
-- Use 8px radius for controls and repeated panels.
-- Use larger radii only inside the poster preview itself, where it matches the generated poster style.
-- Prefer clear grid alignment over floating decorative cards.
+- `Fraunces`
+- `DM Serif Display`
+- `Playfair Display`
+- `Recoleta` if available
 
-### Texture And Depth
+UI / Body:
 
-Add subtle paper grain or canvas texture to the page background. Keep it quiet. The product should feel tactile, like a print studio, not like a glossy AI landing page.
+- `Manrope`
+- `IBM Plex Sans`
+- `Source Sans 3`
+- `Satoshi` if available
 
-## 5. First Screen Layout
+### Type Rules
 
-The first screen should be the actual poster creation tool, not a marketing landing page.
+- Use the display font for the app title, poster title, and major section headings.
+- Use the sans-serif font for labels, buttons, form fields, and metadata.
+- Poster titles should be large, compressed into 1 to 3 lines, and visually dominant.
+- UI text should be practical and compact. Do not use giant hero text inside control panels.
+- Letter spacing should be normal for body text and slightly increased only for short labels.
 
-Suggested layout:
+## 7. Texture Language
 
-- Top bar:
-  - Product name: `ImagineX Poster Creator`
-  - Small actions: GitHub, Download, Reset
-- Main workspace:
-  - Left panel: event input controls
-  - Center/right: live poster preview
-  - Bottom or side strip: style presets
+Texture is the main differentiator.
 
-Desktop layout:
+Use these texture ideas in the website and poster preview:
 
-- 35% width: editor panel
-- 65% width: poster preview workspace
+- Halftones
+- Print texture
+- Screen-print grain
+- Dot matrix grid
+- Slight ink misregistration
+- Soft paper fiber
+- Subtle ink bleed
+- Risograph-style color overlap
 
-Mobile layout:
+Texture should support the poster, not make the interface noisy.
 
-- Poster preview first
-- Form controls below
-- Sticky bottom action bar for Download and Generate
+### Texture Prompt Terms
 
-## 6. Core Screens
+When generating artwork or poster styles, include texture terms at the end of the prompt:
 
-### Main Creator
+- `halftone dots`
+- `retro print texture`
+- `screen print grain`
+- `dot matrix grid`
+- `risograph ink overlap`
+- `paper grain`
+- `slightly imperfect ink edges`
 
-Required fields:
+## 8. AI Poster Prompt Formula
 
-- Event title
-- Date
-- Time
-- Place
-- Description
-- Optional image upload
+For AI-generated poster artwork, prompts should follow this order:
 
-Controls:
+1. Subject: clearly describe the event theme or main visual subject.
+2. Layout and text: describe the poster composition, title area, metadata blocks, and main color palette.
+3. Texture: add the print-specific texture terms last.
 
-- Style preset selector
-- Accent color selector
-- Poster format selector, starting with `Portrait 768 x 1086`
-- Download PNG button
-- Reset button
+### Prompt Pattern
 
-The preview should update as the user changes inputs.
+```text
+[Subject / event theme]. A portrait event poster layout with a bold editorial title area, large central artwork, compact date/time/place blocks, and a [main color palette] palette. Add retro print texture, halftone dots, screen print grain, dot matrix grid, paper grain, and slightly imperfect ink edges.
+```
 
-### Gallery / Examples
+### Example
 
-Show 3 to 6 sample posters generated by the app.
+```text
+A creative coding workshop for students building visual tools. A portrait event poster layout with a bold editorial title area, large abstract geometric artwork, compact date/time/place blocks, and an ink black, paper cream, signal red, and faded teal palette. Add retro print texture, halftone dots, screen print grain, dot matrix grid, paper grain, risograph ink overlap, and slightly imperfect ink edges.
+```
 
-Sample preset names:
+This order matters: subject first, layout and color second, texture last. That prevents the image from becoming a clean generic AI graphic and gives it a stronger printed-poster feeling.
+
+## 9. Layout Principles
+
+The first screen should be the working poster creator, not a marketing landing page.
+
+### Desktop Layout
+
+- Left side: editor controls.
+- Right side: large poster preview.
+- Top bar: brand name, GitHub link, reset, download.
+- Bottom section: example presets or mini gallery.
+
+Recommended proportions:
+
+- Editor: 34% to 40% width.
+- Preview stage: 60% to 66% width.
+
+The poster should be centered and visually dominant. The editor should feel like a studio control desk.
+
+### Mobile Layout
+
+- Poster preview first.
+- Editor controls below.
+- Sticky bottom action row for Download and Reset.
+- Presets should become horizontally scrollable chips or stacked compact buttons.
+
+## 10. Component System
+
+### Top Bar
+
+The top bar should be minimal and functional:
+
+- Brand mark or short logo.
+- Product name.
+- GitHub link.
+- Reset button.
+- Download PNG button.
+
+The brand mark can be a simple `IX` monogram inside a square or print-label shape.
+
+### Editor Panel
+
+The editor panel should include:
+
+- Event title input.
+- Date input.
+- Time input.
+- Place input.
+- Description textarea.
+- Image upload.
+- Visual preset selector.
+- Accent color selector.
+
+Controls should be compact, aligned, and easy to scan.
+
+### Poster Preview
+
+The poster preview is the product.
+
+It should include:
+
+- Small category label, such as `EVENT POSTER`.
+- Large event title.
+- Central artwork or uploaded image.
+- Description block.
+- Date, time, and place blocks.
+- Halftone or print texture overlay.
+
+The preview stage may use a darker or warmer background so the poster feels like a physical object sitting on a studio table.
+
+### Preset Selector
+
+Preset names should feel like poster styles:
 
 - Creative Lab
 - Night Market
-- Tech Talk
 - Campus Fair
+- Tech Talk
 - Music Session
-- Art Workshop
+- Print Club
 
-This page or section helps the project look more complete on Vercel and gives users immediate inspiration.
+Each preset should change:
 
-### About / Project Notes
+- Background colors.
+- Accent color.
+- Artwork style.
+- Texture strength.
+- Metadata block style.
 
-Keep this short. It should explain:
+### Image Upload
 
-- Built from a Python Pillow mini challenge.
-- Extended into a web-based poster creation experience.
-- Generates downloadable event posters.
+The upload state should feel tactile:
 
-This is useful for portfolio reviewers, but it should not dominate the product.
+- Dashed border or print-registration border.
+- Drag-and-drop support.
+- Small helper copy.
+- Uploaded image cropped into the poster artwork area.
 
-## 7. Interaction Details
+## 11. Poster Art Direction
 
-Important user interactions:
+The generated poster should feel printable and designed.
 
-- Typing into fields updates the poster preview immediately.
-- Uploading an image crops it into the artwork area.
-- Style preset changes poster colors, typography, and decorative artwork.
-- Download button exports the visible poster as a PNG.
-- Empty fields use tasteful defaults such as `Untitled Event`, `TBC`, and `A hands-on creative workshop event.`
+### Composition
 
-Micro-interactions:
+- Strong top title.
+- Large middle artwork zone.
+- High-contrast information band.
+- Three compact event metadata blocks.
+- Generous outer margin.
 
-- Buttons should have clear hover and pressed states.
-- Preset chips should show selected state with a strong border or filled background.
-- Image upload should support drag and drop.
-- Preview should have a subtle page-load reveal.
+### Visual Motifs
 
-## 8. Poster Template Direction
+Use:
 
-The generated poster should have a recognizable composition:
+- Geometric shapes.
+- Offset circles.
+- Diagonal strokes.
+- Collage-like image crops.
+- Halftone fields.
+- Screen-print overlaid colors.
+- Paper grain.
 
-- Small label at the top, such as `EVENT POSTER`
-- Large event title
-- Hero artwork or uploaded image
-- Description block
-- Three compact info blocks for date, time, and place
+Avoid:
 
-The template should feel intentionally designed, not like text placed on a canvas.
+- Smooth glossy gradients as the main visual language.
+- Generic stock-photo hero sections.
+- Overly rounded SaaS cards.
+- Low-contrast text over busy images.
 
-Recommended poster details:
+## 12. Motion And Interaction
 
-- Use a large editorial title.
-- Keep metadata blocks compact.
-- Use a strong dark description band.
-- Include abstract default artwork when no image is uploaded.
-- Keep enough margin so the poster feels printable.
+Motion should be restrained and useful.
 
-## 9. Stitch Prompt
+Use:
 
-Use this prompt in Stitch to generate the first web version:
+- Subtle poster preview reveal on page load.
+- Button hover lift with ink-like shadow.
+- Preset selected state with clear border.
+- Swatch selected state with ring.
+- Drag-over upload feedback.
+
+Avoid:
+
+- Heavy page transitions.
+- Constant animated backgrounds.
+- Motion that distracts from editing the poster.
+
+## 13. Accessibility
+
+Minimum requirements:
+
+- All form inputs need visible labels.
+- Buttons need clear text or accessible names.
+- Poster controls must be keyboard reachable.
+- Text contrast should remain strong on all presets.
+- Uploaded image should never make event metadata unreadable.
+- Mobile layout must avoid overlapping controls and poster preview.
+
+## 14. Website Structure
+
+Recommended sections:
+
+1. Creator workspace: the actual tool.
+2. Preset gallery: 3 to 6 example poster styles.
+3. Project story: short explanation of Python Pillow prototype to web app.
+4. Technical notes: canvas export, image upload, Vercel deployment.
+
+Do not start with a generic marketing hero. The app itself should be the hero.
+
+## 15. Stitch Prompt
+
+Use this prompt in Stitch:
 
 ```text
-Design a polished web app called ImagineX Poster Creator. It is a creative studio tool that turns event details into a downloadable poster. The first screen should be the actual app, not a marketing landing page.
+Design a polished web app called ImagineX Poster Creator. It is a browser-based poster studio that turns event details into a downloadable portrait event poster. The first screen must be the actual creation tool, not a marketing landing page.
 
-Use an editorial creative-studio aesthetic with warm paper texture, ink navy, paper cream, sage green, marigold, and small coral accents. Avoid generic SaaS styling and purple AI gradients.
+Design style: Halftone Editorial Studio. Make it feel like a modern web editor mixed with a retro print studio. Use warm paper surfaces, deep ink contrast, editorial typography, visible halftone dots, screen-print grain, subtle paper texture, dot matrix grids, and slightly imperfect ink edges. The product should feel tactile and portfolio-ready, not like a generic SaaS dashboard.
 
-Desktop layout: a structured editor panel on the left and a large live poster preview workspace on the right. The editor includes inputs for event title, date, time, place, description, optional image upload, style presets, accent color selector, reset, and download PNG. The poster preview should look like a print-ready portrait event poster with a large title, artwork area, description block, and date/time/place cards.
+Desktop layout: a compact editor panel on the left and a large poster preview stage on the right. The editor includes event title, date, time, place, description, image upload, visual preset selector, accent color swatches, reset, and download PNG. The poster preview is the hero: portrait 768 x 1086, large editorial title, central artwork area, dark description band, date/time/place blocks, halftone texture overlay, and print-style color accents.
 
-Mobile layout: poster preview first, controls below, sticky bottom actions for download and reset.
+Mobile layout: poster preview first, controls below, sticky bottom actions for Download PNG and Reset. Keep all text readable and prevent overlap.
 
-Use expressive editorial typography for the product title and poster title, paired with a clean sans-serif UI font. Add subtle paper grain and refined hover states. Keep components practical and portfolio-ready.
+Visual palette: ink black, deep navy, paper cream, newsprint beige, signal red, risograph orange, screenprint blue, faded teal, and mustard yellow. Use one accent color at a time. Avoid purple AI gradients, glossy 3D, and generic white card layouts.
+
+Typography: use a distinctive editorial serif for poster titles and product headings, paired with a clean sans-serif for UI controls. Buttons and labels should feel precise and functional.
+
+Add a small preset gallery below the tool with styles named Creative Lab, Night Market, Tech Talk, Campus Fair, Music Session, and Print Club. Each preset card should show a mini poster thumbnail with halftone or screen-print texture.
+
+Important: the app should look like a real tool users can interact with. Prioritize live preview, image upload, visual presets, accent colors, and PNG export controls.
 ```
 
-## 10. Suggested Web Implementation
+## 16. Prompt For Generating Poster Artwork
 
-Recommended stack:
+Use this when generating individual poster artwork or default illustrations:
+
+```text
+Subject: a [event type] poster for [audience or theme].
+Layout: portrait event poster, bold editorial title area, central abstract artwork, compact metadata blocks for date, time, and place, high-contrast description band, [chosen palette] colors.
+Texture: halftone dots, retro print texture, screen print grain, dot matrix grid, risograph ink overlap, paper grain, slightly imperfect ink edges.
+```
+
+Example:
+
+```text
+Subject: a creative coding workshop poster for university students.
+Layout: portrait event poster, bold editorial title area, central abstract artwork with geometric shapes, compact metadata blocks for date, time, and place, high-contrast description band, ink black, paper cream, signal red, and faded teal colors.
+Texture: halftone dots, retro print texture, screen print grain, dot matrix grid, risograph ink overlap, paper grain, slightly imperfect ink edges.
+```
+
+## 17. Implementation Notes
+
+The current static web app can keep using:
+
+- `index.html`
+- `styles.css`
+- `script.js`
+- Canvas-based poster rendering
+- PNG export through `canvas.toDataURL("image/png")`
+
+If the project grows, the next version can move to:
 
 - Vite + React
 - TypeScript
-- CSS modules or Tailwind
-- `html-to-image` or `dom-to-image-more` for PNG export
-- Optional: keep the existing Python version as the original generator reference
+- Componentized editor and poster preview
+- Preset data file
+- Better image crop controls
+- Export size options
 
-Suggested file structure:
+## 18. Definition Of Done
 
-```text
-src/
-  App.tsx
-  components/
-    EditorPanel.tsx
-    PosterPreview.tsx
-    PresetSelector.tsx
-    ImageUploader.tsx
-  data/
-    presets.ts
-  styles/
-    tokens.css
-    app.css
-```
+The redesigned site is successful when:
 
-## 11. Portfolio Story
-
-Use this framing in the README or portfolio:
-
-> I started from a Python Pillow workshop challenge, then redesigned it into a web-based poster studio. The final product keeps the original programmatic image-generation idea, but adds a more complete user experience: live editing, visual presets, image upload, and downloadable poster output.
-
-This makes the project sound more mature without pretending it is larger than it is.
-
-## 12. Build Roadmap
-
-### Phase 1 - Design Prototype
-
-- Generate the UI in Stitch using the prompt above.
-- Keep the layout focused on editor + poster preview.
-- Export the generated code or recreate it in React.
-
-### Phase 2 - Functional Web App
-
-- Build the React editor.
-- Render the poster preview from state.
-- Add style presets.
-- Add image upload.
-- Add PNG download.
-
-### Phase 3 - Portfolio Polish
-
-- Add sample posters.
-- Update README with screenshots and Vercel link.
-- Add a short project story.
-- Push to GitHub.
-- Deploy with Vercel.
-
-## 13. Definition Of Done
-
-The web version is ready when:
-
-- A user can create a poster without reading instructions.
-- The preview updates from form inputs.
-- At least three visual presets work.
-- Image upload works.
-- PNG download works.
-- The app is deployed on Vercel.
-- README includes a screenshot, live demo link, and clear project summary.
+- Users understand the tool immediately.
+- The poster preview is visually stronger than the form.
+- The halftone / print texture is clearly visible but not messy.
+- Users can enter event details, upload artwork, choose a preset, and download PNG.
+- The site looks credible on GitHub, Vercel, and a portfolio page.
+- The project story clearly explains the evolution from Python Pillow mini challenge to deployed web poster studio.
