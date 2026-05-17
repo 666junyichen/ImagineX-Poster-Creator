@@ -73,6 +73,8 @@ An example output is available at `examples/sample_poster.png`.
 
 ## Web Version
 
+Live demo: https://imaginex-poster-creator.vercel.app
+
 The browser version is a small static web app built with HTML, CSS, and
 JavaScript. It includes:
 
