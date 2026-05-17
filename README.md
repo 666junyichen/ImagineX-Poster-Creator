@@ -4,6 +4,9 @@ This repository contains my workshop mini challenge code for building an event
 poster creator with Python. The project uses `Pillow` to generate a polished
 custom poster from event details and an optional image.
 
+I also added a lightweight web version so the project can be opened as a live
+poster creator in the browser and deployed on Vercel.
+
 ## Workshop Goal
 
 The goal of this workshop was to practice using Python to create a small,
@@ -67,6 +70,22 @@ The tool will:
 An example output is available at `examples/sample_poster.png`.
 
 ![Sample poster](examples/sample_poster.png)
+
+## Web Version
+
+The browser version is a small static web app built with HTML, CSS, and
+JavaScript. It includes:
+
+- Live poster preview.
+- Event detail inputs.
+- Visual presets and accent colors.
+- Optional image upload.
+- PNG download from the canvas preview.
+
+Open `index.html` locally, or deploy this repository to Vercel to share the
+tool as a live website.
+
+The design direction and Stitch prompt are documented in `design.md`.
 
 ## How To Run
 
